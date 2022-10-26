@@ -38,7 +38,7 @@
 import buble from "@rollup/plugin-buble";
 import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import {terser} from "rollup-plugin-terser";
+import {terser} from "rollup-terser";
 
 let outputs = [
     {
@@ -101,6 +101,11 @@ const formats = [
                     }
                 ),
                 plugins: output.plugins.concat([buble()])
+                // plugins: output.plugins.concat([buble(
+                //   {
+                //     transforms: { generator: false }
+                //   }
+                // )]),
             }
         )
     ],

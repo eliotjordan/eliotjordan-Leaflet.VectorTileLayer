@@ -41,13 +41,17 @@
   },
   "devDependencies": {
     "@mapbox/vector-tile": "*",
-    "@rollup/plugin-buble": "*",
-    "@rollup/plugin-commonjs": "*",
-    "@rollup/plugin-node-resolve": "*",
+    "@rollup/plugin-buble": "^1.0.1",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "jslint-cli": "*",
-    "pbf": "*",
-    "rollup": "*",
-    "rollup-plugin-terser": "*"
+    "rollup": ">=3.0.0",
+    "rollup-terser": "^1.0.3"
+  },
+  "dependencies": {
+    "pmtiles": "^2.3.0",
+    "@mapbox/vector-tile": "^1.3.0",
+    "pbf": "^3.0.2"
   },
   "peerDependencies": {
     "leaflet": "^1.0.0"

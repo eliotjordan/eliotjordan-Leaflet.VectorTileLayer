@@ -48,6 +48,7 @@ import fetch from "./fetch.js";
 import {GridLayer, Util, latLngBounds} from "leaflet";
 import Pbf from "pbf";
 import {VectorTile} from "@mapbox/vector-tile";
+import {PMTiles} from "pmtiles";
 
 function err(...args) {
     return new Error(args.join(": "));
@@ -121,6 +122,7 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     }
 
     const m_featureTiles = {};
+    const  pm = {};
     self.on("tileunload", function (evt) {
         const id = tileId(evt.coords);
         const tile = m_featureTiles[id];
@@ -153,17 +155,25 @@ export default Object.freeze(function vectorTileLayer(url, options) {
         return m_super.onRemove.call(self, ...args);
     };
 
+    self.getPM = function getPM() {
+       const p = new pmtiles.PMTiles("https://pul-tile-images.s3.amazonaws.com/pmtiles/parcels.pmtiles")
+       return p
+    };
+
     self.createTile = function createTile(coords, done) {
         const id = tileId(coords);
         const tile = featureTile(coords, self);
 
         m_featureTiles[id] = tile;
-        load(self.getTileUrl(coords)).then(function (buffer) {
-            tile.addVectorTile(new VectorTile(new Pbf(buffer)));
-            done(null, tile);
-        }, function (exc) {
-            done(exc, tile);
-        });
+       //  const p = new pmtiles.PMTiles("https://pul-tile-images.s3.amazonaws.com/pmtiles/parcels.pmtiles")
+        debugger;
+
+        // load(self.getTileUrl(coords)).then(function (buffer) {
+        //     tile.addVectorTile(new VectorTile(new Pbf(buffer)));
+        //     done(null, tile);
+        // }, function (exc) {
+        //     done(exc, tile);
+        // });
 
         return tile.domElement();
     };
